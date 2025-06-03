@@ -21,7 +21,7 @@ tutor-learner-system/
 To compile the project, ensure you have `gcc` installed and run the following command from the project root directory:
 
 ```bash
-gcc src/*.c -Iinclude -o TutorSystem
+gcc -Wall -Wextra -Iinclude -o TutorSystem src/main.c src/tutor.c src/file_ops.c
 ```
 
 This will create an executable named `TutorSystem` in the project root.
@@ -31,7 +31,7 @@ This will create an executable named `TutorSystem` in the project root.
 After successful compilation, run the program using:
 
 ```bash
-./TutorSystem
+.\TutorSystem.exe 
 ```
 
 ## Requirements
