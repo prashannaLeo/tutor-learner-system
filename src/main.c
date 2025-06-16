@@ -2,6 +2,7 @@
 #include <string.h>
 #include "tutor.h"
 #include "file_ops.h"
+#include "learner.h" // <-- Add this include
 
 #define QUESTIONS_FILE "data/questions.txt"
 
@@ -22,7 +23,8 @@ void tutor_mode(Question questions[], int *count) {
         printf("1. Add Question\n");
         printf("2. List Questions\n");
         printf("3. Delete Question\n");
-        printf("4. Back to Main Menu\n");
+        printf("4. Edit Question\n");
+        printf("5. Back to Main Menu\n");
         printf("Choose: ");
         fgets(buffer, sizeof(buffer), stdin);
         sscanf(buffer, "%d", &choice);
@@ -41,33 +43,14 @@ void tutor_mode(Question questions[], int *count) {
                 delete_question(questions, count, id);
                 break;
             case 4:
+                edit_question(questions, *count);
+                break;
+            case 5:
                 return;
             default:
                 printf("Invalid choice.\n");
         }
     }
-}
-
-void learner_mode(const Question questions[], int count) {
-    if (count == 0) {
-        printf("No questions available for practice.\n");
-        return;
-    }
-    char answer[MAX_ANSWER_LEN];
-    int score = 0;
-    printf("\n--- Learner Mode ---\n");
-    for (int i = 0; i < count; i++) {
-        printf("Q%d: %s\nYour answer: ", i + 1, questions[i].question);
-        fgets(answer, sizeof(answer), stdin);
-        answer[strcspn(answer, "\n")] = '\0';
-        if (strcmp(answer, questions[i].answer) == 0) {
-            printf("Correct!\n");
-            score++;
-        } else {
-            printf("Incorrect. Correct answer: %s\n", questions[i].answer);
-        }
-    }
-    printf("You scored %d out of %d.\n", score, count);
 }
 
 int main() {
@@ -91,7 +74,7 @@ int main() {
                 save_questions(questions, count, QUESTIONS_FILE);
                 break;
             case 2:
-                learner_mode(questions, count);
+                learner_mode(questions, count); // Now calls the function from learner.c
                 break;
             case 3:
                 save_questions(questions, count, QUESTIONS_FILE);

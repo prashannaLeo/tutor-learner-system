@@ -16,5 +16,6 @@ void add_question(Question questions[], int *count);
 void display_questions(const Question questions[], int count);
 int find_question_by_id(const Question questions[], int count, int id);
 void delete_question(Question questions[], int *count, int id);
+void edit_question(Question questions[], int count); // <-- Added
 
 #endif // TUTOR_H
